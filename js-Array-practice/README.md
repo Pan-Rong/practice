@@ -79,7 +79,8 @@ replace详细解释[点击连接](https://developer.mozilla.org/zh-CN/docs/Web/J
     start指定修改的开始位置（从0计数）。如果超出了数组的长度，则从数组末尾开始添加内容；如果是负值，则表示从数组末位开始的第几位（从1计数）；若只使用start参数,表示删除[start，end]的元素.
     deleteCount(可选)，整数，表示要移除的数组元素的个数。
     item1(可选)，要添加进数组的元素,从start 位置开始。
-    返回值：由被删除的元素组成的一个数组。
+
+返回值：由被删除的元素组成的一个数组。
 ### 5、找出多个数组中的最大数
     找出多个数组中的最大数，然后把他们串联起来，形成一个新数组
 ```
@@ -101,8 +102,7 @@ replace详细解释[点击连接](https://developer.mozilla.org/zh-CN/docs/Web/J
             .substr方法，返回一个字符串从指定位置开始到指定字符数的字符；
             str.substr(start[,length])
             start开始提取字符的位置。若为负，则看作strlength-start；
-            length（可选）
-        */
+            length（可选）        */
         var nstr=str.substr(-(target.length));
             if(nstr===target){
                 return true;
@@ -135,3 +135,163 @@ replace详细解释[点击连接](https://developer.mozilla.org/zh-CN/docs/Web/J
     从该索引（以0为基数）处开始提取原字符串的字符
     若值为负，则看作sourceLength+beginSlice(此处的begin为负)
     end可选，若省略，一直提到末尾；若为负，同begin
+### 8、分割数组
+    把一个数组arr按照指定的数组大小size分割成若干个数组块。
+```
+    function chunk(arr,size){
+        var narr=[];//用于存放新数组
+            for(var i=0,j=0;i<arr.length;i+=size,j++){
+                narr[j]=narr.slice(i,size+i);
+            }
+            return narr
+    }
+    
+```
+    数组方法解释
+    arr.slice(start,end),返回一个共开始到结束(不包括结束)选择的数组的一部分浅拷贝到一个新数组对象，原数组不会改变。
+    start ，可选，省略索引从0开始；
+    end，可选，索引；结束提取索引的元素
+### 9、截断数组
+    返回一个数组被截断n个元素后还剩余的元素，截断从索引0开始
+```
+    function slasher(arr,howMany){
+        if(howMany>0){
+            arr=arr.slice(howMany);
+        }
+        return arr;
+    }
+```
+### 10、比较字符串（蛤蟆可以吃队友，也可以吃对手）
+    如果数组第一个字符串元素包含了第二个字符串元素的所有字符串，函数返回true(不看顺序，只要包含所有单个字符就行)
+```
+    function mutation(arr){
+        var fstr=arr[0].toUpperCase();
+        var lstr=arr[1].toUpperCase().split("");
+        var num=0;
+            for(var i=0;i<lstr.length;i++){
+                if(fstr.indexOf(lstr[i])!==-1){
+                    num++;
+                }
+            }
+            if(num===lstr.length){
+                return true;
+            }else{
+                return false;
+            }
+    }
+```
+    字符串方法解释：
+    String.indexOf(searchValue[, fromIndex]),返回调用  String 对象中第一次出现的指定值的索引.如果未找到该值，则返回-1
+    searchValue,一个字符串表示被查找的值.
+    fromIndex(可选)，表示调用该方法的字符串中开始查找的位置;默认为0.
+### 11、过滤数组假值(真假美猴王)
+    删除数组中的所有假值，javaScript中的假值有false、null、0、""、undefined和NaN
+```
+    function bouncer(arr){
+        arr=arr.filter(function(val){
+            if(val!==0){
+                return val;
+            }
+        });
+        return arr;
+    }
+```
+    数组方法解释：
+    Array.filter(callback[, thisArg]),创建一个新数组, 其包含通过所提供函数实现的测试的所有元素.
+    callback:用来测试数组的每个元素的函数。调用时使用参数 (element, index, array)。返回true表示保留该元素（通过测试），false则不保留.元素的值\元素的索引\被遍历的数组(callback的三个参数)
+    thisArg 可选。执行 callback 时的用于 this 的值.
+### 12、摧毁数组（金克斯的迫击炮）
+    实现一个摧毁（destroyer）函数，第一个参数是待摧毁的数组，其余参数是待摧毁的值。
+```
+    function destroyer(arr){
+        var args=[].slice.call(arguments);
+            for(var i=1;i<args.length;i++){
+                args[0]=args[0].filter(function(val){
+                    if(val!==args[i]){
+                        return val;
+                    }
+                });
+            }
+            return args[0];
+    }
+    destroyer(["tree","hamburger",53],"tree",53);
+```
+    Arguments object 解释：
+    arguments 是一个对应于传递给函数的参数的类数组对象。arguments对象是所有（非箭头）函数中都可用的局部变量。你可以使用arguments对象在函数中引用函数的参数。此对象包含传递给函数的每个参数的条目，第一个条目的索引从0开始。arguments对象不是一个 Array 。它类似于Array，但除了长度之外没有任何Array属性。但是它可以被转换为一个真正的Array：
+```
+    var args = Array.prototype.slice.call(arguments);
+    var args = [].slice.call(arguments);
+
+    // ES2015
+    const args = Array.from(arguments);
+```
+    对参数使用slice会阻止某些JavaScript引擎中的优化,如果你关心性能，尝试通过遍历arguments对象来构造一个新的数组。另一种方法是使用被轻视的Array构造函数作为一个函数：
+```
+    var args = (arguments.length === 1 ? [arguments[0]] : Array.apply(null, arguments));
+```
+[详情](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments)
+
+### 13、数组排序并找出元素索引（我身在何处？）
+    先给数组排序，然后找到指定的值在数组的位置，最后返回位置对应的索引。
+```
+    function where(arr,num){
+        var indarr;//用于存放索引
+            arr=arr.filter(function(var){
+                if(val!==num){
+                    return val;
+                }
+            });//以上操作防止该数已存在原数组中，若有就过滤掉，下面添加上
+            arr.push(num);
+            arr=arr.sort(fucntion(a,b){return a-b;});//实现从小到大排
+            for(var i=0;i<arr.length;i++){
+                if(arr[i]===num){
+                    indarr=i;
+                }
+            }
+            return indarr;
+    }
+    where([3,10,5],3);
+```
+### 14、凯撒密码（上帝的归上帝，凯撒的归凯撒）
+    凯撒密码Caesar cipher又叫移位密码，也就是密码中的字母会按照指定的数量来做移位，一个常见的案例就是ROT13密码，字母会移位13个位置。由'A'-'N','B'-'O'以此类推。写一个ROT13函数，实现输入加密字符串，输出解密字符串。所有的字母都是大写，不要转化任何非字母形式的字符（如空格，标点符号），遇到这些特殊字符，跳过他们。
+```
+    function rot13(str){
+        //"A" charCodeAt()=65;
+        //"Z" charCodeAt()=90;
+        var bstr=str.split(" ");
+            for(var j=0;j<bstr.length;j++){
+                var astr=bstr[j].split("");
+                    for(var i=0;i<astr.length;i++){
+                        var num=astr[i].charCodeAt();
+                            if(num<=90&&num>=65){
+                                num+=13;
+                                if(num>90){
+                                    num=65+num-90-1;
+                                }
+                            }
+                            astr[i]=String.fromCharCode(num);//静态 String.fromCharCode(num1, ..., numN) 方法返回使用指定的Unicode值序列创建的字符串
+                    }
+                    bstr[j]=astr.join("");
+            }
+            bstr=bstr.join(" ");
+            return bstr;
+    }
+    rot13("ASD HE?");
+```
+### 15、获得GEO位置数据(该代码非原创，书中的示例)
+    通过浏览器navigator获得我们当前所在的位置geolocation。位置的信息包括经度longitude和纬度latitude.
+```
+    <script>
+        if(navigator.geolocation){
+            navigator.geolocation.getCurrentPosition(function(position){
+                $("#data").append("lattude:"+position.coords.latitude+"<br>longitude:"+position.coords.longitude);
+            });
+        }
+    </script>
+    <div id="data">
+        <h4>You are here:</h4>
+    </div>
+```
+以上除最后一例，其他均为原创.码字好辛苦，若你也喜欢，请帮忙点个赞.谢谢~
+    
+   
