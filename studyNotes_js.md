@@ -1,9 +1,11 @@
+
 # JS学习笔记
 **1、 函数中参数 parameters 和 arguments区别**
 
     函数的parameters是函数被定义是列出的参数，为形参(formal parameter)
     函数arguments是函数调用时的真实值;parameters是arguments初始化时的值.
 [详情](https://developer.mozilla.org/en-US/docs/Glossary/Parameter)
+
 **2、javascript中arguments对象**
    
     arguments 是一个对应于传递给函数的参数的类数组对象。
