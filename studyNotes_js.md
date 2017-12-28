@@ -1,4 +1,5 @@
 
+
 # JS学习笔记
 **1、 函数中参数 parameters 和 arguments区别**
 
@@ -17,3 +18,13 @@
 ```
     arguments对象不是一个 Array 。它类似于Array，但除了长度之外没有任何Array属性.
 [详情](https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Functions/arguments)
+
+**3、JS中异步编程的4种方法** [详情连接](http://www.ruanyifeng.com/blog/2012/12/asynchronous%EF%BC%BFjavascript.html)
+    
+    (1)回调函数
+    
+    (2)事件监听，jQuery中就是绑定事件，纯JS中是添加监听器
+    
+    (3)发布和订阅模式(publish-subscribe pattern)
+    
+    (4)promises模式  
