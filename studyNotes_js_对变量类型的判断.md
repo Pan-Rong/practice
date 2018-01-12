@@ -16,12 +16,11 @@ Object中还细分了很多具体类型，比如：Array，Function，Date等等
       (9) var date=new Date();
       (10) var reg=/^[a-zA-Z]{5，20}$/;
       (11) var error=new Error();
-      
-  **1.使用typeof检测**
-  
-      
-      打印上述的变量
-  ```
+
+**1.使用typeof检测**
+
+      打印上述的变量
+```
         console.log(
             typeof num,   //number
             typeof str,   //string
@@ -35,16 +34,16 @@ Object中还细分了很多具体类型，比如：Array，Function，Date等等
             typeof reg,   //object
             typeof error    //object
         );
-  ```
-      由上述可知，typeof是区分不出array和json类型的。
+```
+      由上述可知，typeof是区分不出array和json类型的。
       
-  **2.使用instance检测**
+**2.使用instance检测**
   
   在JS中，判断一个变量的类型常常会用typeof运算符，在使用typeof运算符时，采用引用类型存储值会
   出现一个问题，无论引用的是什么类型的对象，它都返回“object”。ECMAScript引入另一个JAVA运算符
   instanceof来解决这个问题。instanceof运算符与typeof运算符相似，用于识别正在处理的对象的类
   型。与typeof方法不同的是，instanceof方法要求开发者明确确认对象为某特定类型，例：
-  ```
+```
       function Person(){}
       var Tom=new Person();
       console.log(Tom instanceof Person);   //true
@@ -55,11 +54,11 @@ Object中还细分了很多具体类型，比如：Array，Function，Date等等
       var John=new Student();
       console.log(John instanceof Student);   //true
       console.log(John instanceof Person);    //true    
-  ```
-    instanceof还能检测出多层继承的关系
-    
-    用instanceof检测上述的变量
- ```
+```
+      instanceof还能检测出多层继承的关系
+
+      用instanceof检测上述的变量
+```
       console.log(
         num instanceof Number,  //false
         str instanceof String,  //false
@@ -73,22 +72,21 @@ Object中还细分了很多具体类型，比如：Array，Function，Date等等
         reg instanceof RegExp,  //true
         error instanceof Error  //true
       );
- ```
-    从上面运行结果可知，num，str，和bool没有检测出它们的类型，但是当使用构造函数的方法时，
-    是可以检测出类型的。
- 
-    同时，und和nul是检测的Object类型，才输出true,因为js中没有Undefined和Null这种全局类型，
-    
+```
+      从上面运行结果可知，num，str，和bool没有检测出它们的类型，但是当使用构造函数的方法时，
+      是可以检测出类型的。
+
+      同时，und和nul是检测的Object类型，才输出true,因为js中没有Undefined和Null这种全局类型，
+
 **3.使用constructor检测**
 
-    在使用instanceof检测变量类型时，我们检测不到number，String和Boolean类型，因此用另一
-    种方法检测
-    
-    constructor本来是原型对象上的属性，指向构造函数。但是根据实例对象寻找的可向上检索机制，
-    所以，实例对象也是可以使用constructor属性的。(注：undefined和null没有constructor属性)
-    
-    上述变量再次输出：
-    
+      在使用instanceof检测变量类型时，我们检测不到number，String和Boolean类型，因此用另一
+      种方法检测
+
+      constructor本来是原型对象上的属性，指向构造函数。但是根据实例对象寻找的可向上检索机制，
+      所以，实例对象也是可以使用constructor属性的。(注：undefined和null没有constructor属性)
+
+      上述变量再次输出：
 ```
     console.log(
         num.constructor==Number,  //true
@@ -102,21 +100,21 @@ Object中还细分了很多具体类型，比如：Array，Function，Date等等
         error.constructor==Error  //true
     );
 ```
-    使用constructor有一个缺点：constructor属性可以被修改。例如
-    ：当被检测的对象的原型指向另一个对象时，则检测不出该对象的类型
-    
-    注：使用instanceof和constructor来判断array时，array必须是在当前页面声明的！
-    原因：(1) array属于引用型数据，在传递过程中，仅仅是引用地址的传递；
-          (2) 每个页面的Array原生对象所引用的地址是不一样的，在子页面声明的array，其构造
-              函数是子页面的Array对象；父页面来进行判断，使用的Array并不等于子页面的Array。
-              
- **4.使用Object.prototype.toString.call**
- 
-    ECMA里的定义Object.prototype.toString的行为：首先，取得对象的一个内部属性[[Class]]，然
-    后依据这个属性，返回一个类似于”[object Array]“的字符串作为结果（看过ECMA标准的应该都知道，
-    [[]]用来表示语言内部用到的、外部不可直接访问的属性，称为“内部属性”）。利用这个方法，再配合
-    call，我们可以取得任何对象的内部属性[[Class]]，然后把类型检测转化为字符串比较，以达到我们
-    的目的。
+      使用constructor有一个缺点：constructor属性可以被修改。例如：
+      当被检测的对象的原型指向另一个对象时，则检测不出该对象的类型.
+
+      注：使用instanceof和constructor来判断array时，array必须是在当前页面声明的！
+      原因：(1) array属于引用型数据，在传递过程中，仅仅是引用地址的传递；
+           (2) 每个页面的Array原生对象所引用的地址是不一样的，在子页面声明的array，其构造
+               函数是子页面的Array对象；父页面来进行判断，使用的Array并不等于子页面的Array。
+
+**4.使用Object.prototype.toString.call**
+
+      ECMA里的定义Object.prototype.toString的行为：首先，取得对象的一个内部属性[[Class]]，然
+      后依据这个属性，返回一个类似于”[object Array]“的字符串作为结果（看过ECMA标准的应该都知道，
+      [[]]用来表示语言内部用到的、外部不可直接访问的属性，称为“内部属性”）。利用这个方法，再配合
+      call，我们可以取得任何对象的内部属性[[Class]]，然后把类型检测转化为字符串比较，以达到我们
+      的目的。
 ```
     console.log(
         Object.prototype.toString.call(num),  //[object Number]' 
@@ -133,8 +131,8 @@ Object中还细分了很多具体类型，比如：Array，Function，Date等等
     );
 ```
 **5.jQuery中$.type的实现**
-
-    在jQuery中提供了一个$.type的接口，例：
+      
+      在jQuery中提供了一个$.type的接口，例：
 ```
   console.log(
         $.type(num),  // number 
@@ -150,6 +148,5 @@ Object中还细分了很多具体类型，比如：Array，Function，Date等等
         $.type(error) // error     
   );
 ```
-
-    除了"object"和"function"类型，其他的类型则使用typeof进行检测。即number, string,
-    boolean类型的变量，使用typeof即可。 
+      除了"object"和"function"类型，其他的类型则使用typeof进行检测。即number, string,
+      boolean类型的变量，使用typeof即可。 
