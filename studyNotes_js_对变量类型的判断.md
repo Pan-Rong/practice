@@ -14,8 +14,8 @@ Object中还细分了很多具体类型，比如：Array，Function，Date等等
       (7) var und=undefined;
       (8) var nul=null;
       (9) var date=new Date();
-      (10) var reg=/^[a-zA-Z]{5，20}$/;
-      (11) var error=new Error();
+      (10) var reg=/^[a-zA-Z]{5，20}$/;
+      (11) var error=new Error();
 
 **1.使用typeof检测**
 
@@ -38,11 +38,11 @@ Object中还细分了很多具体类型，比如：Array，Function，Date等等
       由上述可知，typeof是区分不出array和json类型的。
       
 **2.使用instance检测**
-  
-  在JS中，判断一个变量的类型常常会用typeof运算符，在使用typeof运算符时，采用引用类型存储值会
-  出现一个问题，无论引用的是什么类型的对象，它都返回“object”。ECMAScript引入另一个JAVA运算符
-  instanceof来解决这个问题。instanceof运算符与typeof运算符相似，用于识别正在处理的对象的类
-  型。与typeof方法不同的是，instanceof方法要求开发者明确确认对象为某特定类型，例：
+
+      在JS中，判断一个变量的类型常常会用typeof运算符，在使用typeof运算符时，采用引用类型存储值会
+      出现一个问题，无论引用的是什么类型的对象，它都返回“object”。ECMAScript引入另一个JAVA运算符
+      instanceof来解决这个问题。instanceof运算符与typeof运算符相似，用于识别正在处理的对象的类
+      型。与typeof方法不同的是，instanceof方法要求开发者明确确认对象为某特定类型，例：
 ```
       function Person(){}
       var Tom=new Person();
