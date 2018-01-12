@@ -32,17 +32,17 @@
     两个因特网主机通过两个路由器和对应的层连接。各主机上的应用通过一些数据通道相互执行读取操作。
 
     TCP/IP协议栈组成
-        整个通信网络的任务，可以划分成不同的功能区块，即所谓的层级(layer)。TCP/IP协议栈起始于第三层IP.
+        整个通信网络的任务，可以划分成不同的功能区块，即所谓的层级(layer)。TCP/IP协议栈起始于第三层IP.
 
     因特网协议栈中的层
 
         OSI模型(Open System Interconnection Reference Model 开放式系统互联通信参考模型)的最上面三层(应用层、表示层和会话
         层)在TCP/IP组中是一个应用层。
 
-        4.应用层(Application layer):-----例如HTTP、FTP、DNS
-        3.传输层(Transport layer):-------例如：TCP、UDP、RTP、SCTP
-        2.网络互连层(Internet layer):----例如：IP
-        1.网络接口层(Link layer):例如：---以太网、Wi-Fi、MPLS等
+        4.应用层(Application layer):-----例如HTTP、FTP、DNS
+        3.传输层(Transport layer):-------例如：TCP、UDP、RTP、SCTP
+        2.网络互连层(Internet layer):----例如：IP
+        1.网络接口层(Link layer):例如：---以太网、Wi-Fi、MPLS等
 
 **6.HTTP(最新版HTTP/2,超文本传输协议第2版)**     
 
