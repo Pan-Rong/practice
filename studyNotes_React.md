@@ -1,4 +1,4 @@
-# React
+# React[中文文档](https://doc.react-china.org/docs/hello-world.html)
 
 因本人是初学React，所以用了Facebook开发、创建的Create React APP,它简化了搭建React应用框架时的初始化配置过程，一般来说，
 搭建React应用框架需要有Babel等转译器来实现转译，如通过WebPack构建工具运行Babel。使用Create React APP则可以节省这一步骤。
