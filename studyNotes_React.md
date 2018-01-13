@@ -38,7 +38,7 @@ create-react-app会自动提供我们之前看到的自动重新加载行为，�
 create-react-app是一个剋帮助构建React应用的命令行工具，借助该工具，就无需配置Webpack等模块打包工具，
 或者Babel等转译器。它们使用create-react-app进行预配置(并隐藏起来)，使你能够立即构建应用。[create-react-app的更新](https://reactjs.org/blog/2017/05/18/whats-new-in-create-react-app.html)
 
-组件是React的基础材料,React的绝大多数API都是关于组件的，所以说他们确实非常重要，组件是React给我们的主要封装单元.
+组件是React的基础材料,React的绝大多数API都是关于组件的，们确实非常重要，组件是React给我们的主要封装单元.
 
 组件的优点：
 
@@ -227,8 +227,7 @@ create-react-app是一个剋帮助构建React应用的命令行工具，借助�
         断哪些改变了，并为我们做出决策。这种判断之前的输出和新的输出之间哪些变化了的流程，称之
         为“一致性比较”。
         
- 如何更新React的state
- 
+ 如何更新React的state 
     React向我们提供了一个辅助方法，叫做setState，例：this.setState()。
     
     使用setState的方式有两个，
@@ -288,28 +287,297 @@ propTypes优点：
     
 受控组件(Controlled Components):
 
-    通常，当你在Web应用中使用表单时，
+    通常，当你在Web应用中使用表单时，表单状态会位于DOM内，React的主要作用在于更有效地管理你的
+    应用程序的状态。所以表单状态通常存在于DOM内，但是React进行所有的状态管理，那如何处理React
+    中的表单呢？我们通过React的受控组件来解决这个问题。
+    
+    受控组件是渲染表单的组件，但表单状态的来源，位于组件状态内，而非DOM内，它们被称为受控组件
+    的原因是因为React在控制表单的状态。
+    
+    受控组件的代码会稍多点，但是优势很明显：
+    (1) 它们支持即时输入验证
+    (2) 它们允许你有条件地禁用或启用表单按钮
+    (3) 它们限制了输入的格式
+    以上优点都涉及根据用户输入更新，这不仅是受控组件，也是React的核心特征：如果应用的状态发生
+    变化。那么我们的UI会根据新状态进行更新。
+    
+React开发工具
+  
+    作用：使你能够检查组件的层次结构以及各自的属性和状态
     
-    
+受控组件总结
+
+    受控组件是指渲染表格的组件，但是该表格状态的数据源位于组件状态里，而不是DOM里，受控组件的
+    优势：
+     (1) 立即验证输入
+     (2) 有条件地停用/启用按钮
+     (3) 控制输入格式
+     
+React中状态管理的总结：
+
+     在跟踪应用数据时，思考下需要如何处理该数据，并当用户查看应用界面时，数据的外观看起来如何。
+     如果你希望组件存储可变的本地数据，可以考虑使用状态存储该信息。很多时候，系统会使用状态管理
+     组件中的受控表格元素。
+     
+     另一方面，如果某些信息一直不会变化，在整个应用中基本上是"只读"状态，可以考虑改为使用属性，
+     状态和属性通常都是对象形式。更改任何一个都会触发重新渲染组件，但是它们各自在应用中扮演了截
+     然不同的角色。
+     
+ 外部数据渲染UI
+ 
+     如何存储和管理处在于某个数据库中的数据。
+     render方法不能有副作用，它不能发出Ajax请求或执行具有异步性质的任何操作。它只能接收props
+     并返回对此UI的描述。
+     那React是在哪里发出Ajax请求的呢？这就引进了React中的lifecycle events(生命周期事件)的概
+     念。lifecycle event是每个组件具有的特殊方法，允许我们在组件生命的某些事件运行自定义行为。
+     比如，当组件被创建和插入DOM中时，当组件接收props时等等。
+     
+     React拥有大量不同生命周期事件，可供使用。以下是常用的几种：
+     首先：componentWillMount,它在组件插入DOM之前立即调用
+     接下来：componentDidMount,它在组件插入DOM之后立即调用
+     然后：componentWillUnmount,它在组件从DOM移除之前立即调用
+     最后：componentWillRecieveProps,它在组件即将接收全新的props时调用
+     
+     如果我们想从API获取外部数据，要怎么做？
+     这正是使用componentDidMount生命周期事件的最佳时机。
+     
+     render方法仅用于渲染，不应在render方法中获取数据。组件render方法应该仅用于渲染组件；不应该
+     发出任何HTTP请求，获取用于显示内容的数据，或者更高DOM。此外，render方法不应该调用任何执行这
+     些操作的其他函数。
+     
+     因为React中render方法仅用于显示内容，我们将应该处理Ajax请求等任务的代码放在React的生命周期
+     事件中。
+     
+What is 生命周期？
+     
+     生命周期事件是组件中名称特殊的方法。这些方法会自动绑定到组件实例。React将在组件生命周期的特
+     定时间点调用这些方法。要使用其中一个事件，你只需要在组件中使用相关名称创建一个方法。React
+     将调用该方法。这样可以轻松地挂接到React组件的不同生命周期阶段。最最常用的是
+     componentDidMount()生命周期事件；即在组件插入DOM之后立即被调用。
+     
+     想使用React发送Ajax请求，需要使用componentDidMount这个生命周期事件，让我们来看看它的工作
+     原理：
+         在我们的组件添加到视图后，componentDidMount将被掉调用并发起Ajax请求，一旦请求完成并返
+         回正确的相应后setState将被调用，这会使用最新请求的数据更新我们的组件状态。这将会重新渲
+         染组件并更新UI，例：
+```
+      componentDidMount(){
+         fetchUser().then(user=>this.setState({
+              name:user.name
+              age:user.age
+         }))
+      } 
+```
+     componentDidMount()在组件装载后立即被调用，应该在需要初始化DOM节点的时候使用该方法。如果
+     你想从远程端点加载数据，那么此处适合实现网络请求。在此方法中设置状态将触发重新渲染。
+     例：
+```
+     import React,{Component} from 'react';
+     import fetchUser from '../utils/UserAPI';
+     
+     class User extends Component{
+         constructor(props){
+            super(props)
+            this.state={
+                 name:''
+                 age:''
+            }
+         }
+         componentDidMount(){
+            fetchUser().then(user)=>this.setState({
+                 name:user.name
+                 age:user.age
+            })
+         }
+         render(){
+            return(
+                <div>
+                     <p>Name:{this.state.name}</p>
+                     <p>Age:{this.state.age}</p>
+                </div>
+            )
+         }
+     }
+     export default User;
+```
+     上例中的componentDidMount()生命周期事件的工作原理：
+     (1) render()方法被调用，然后它会更新具有<div>的页面(一段是名字，一段是年龄)。值得注
+         意的是，this.state.name和this.state.age是空字符串(一开始)，所以名称和年龄实际
+         上并不显示出来。
+     (2) 组件被装载后，发出componentDidMount()生命周期事件
+         (1) 运行UserAPI的fetchUser请求，它会向用户数据库发出请求
+         (2) 返回数据后，setState()被调用，并更新name和age属性
+      (3) 因为状态已变化，render()再次被调用，这样就会重新渲染页面，但是现在
+          this.state.name和this.state.age具有值了。
+          
+componentDidMount()总结：
+
+      componentDidMount()是React提供的多个生命周期事件之一。当组件被“装载”后(即被渲染之
+      后)，componentDidMount()被调用。如果你想动态地获取数据或运行Ajax请求，则应该在
+      componentDidMount()中执行这些操作.s
       
+使用外部数据渲染UI总结：
+      
+      生命周期是React提供的特殊方法，使我们能够挂接到组件生命周期的不同阶段以运行一些代码。
+      有各种不同的生命周期事件，它们将在不同的时间点运行，但是我们可以将它们划分为三大类别：
+      
+      (1) 添加到DOM中，当组件正在添加到DOM中时，这些生命周期事件被调用
+             constructor()
+             componentWillMount()
+             render()
+             componentDidMount()
+             
+      (2) 重新渲染-rendering
+          当组件正在重新渲染到DOM时，这些生命周期事件被调用：
+             componentWillReceiveProps()
+             shouldComponentUpdate()
+             componentWillUpdate()
+             render()
+             componentDidUpdate()
+             
+        (3) 从DOM中删除
+            当组件正在从DOM中被删除时，以下生命周期事件被调用：
+            componentWillUnmount()
+            
+使用React Router管理应用位置信息   
     
+    当我们在浏览器中使用JS渲染UI时，人们有时称此为“单页面应用”，这是什么意思呢？
+    典型的网站是这样的，当用户访问网站时，浏览器会从网站的服务器请求页面，服务器
+    生成一些HTML并将其返回，当用户使用导航时，浏览器会从服务器请求一个新页面。服
+    务器将返回一个新页面的HTML文件给浏览器，用户便会看到新页面。以此往复；
+  
+单页面应用
+
+    当人们说单页面应用时，并不是说应用只有一个页面，而是说浏览器不需要向服务器请求
+    新页面，而由JS处理页面之间的转换。所以服务器只发送一个初始页面，这就是为什么它
+    叫做单页面应用。React Router是让我们使用React构建单页面应用的一个工具。
+    
+    单页面应用可以有多种工作方式，单页面应用的一种加载方式是一次性下载整个网站的内容。
+    这样，当你浏览网站时，一切内容已经出现在浏览器中，不需要刷新页面。单页面应用的另
+    一种工作方式是下载渲染用户请求的页面所需的所有内容。当用户浏览到新页面时，仅对请
+    求的内容发出异步JS请求。
+    
+    优质单页面应用的另一个关键因素是由URL控制页面内容。单页面应用互动性非常高，用户
+    希望能够仅使用URL就能回到特定的状态。为何这一点很重要呢？bookmarkability(书签
+    功能，很确定的是，这还不是一个单词)。当你将网站添加到书签中，该书签仅仅是URL，并
+    没有记录该页面的状态。
+    
+    你对应用执行的任何操作都不会更新页面的URL。我们需要创建能够将页面添加到书签中的
+    React应用
+    
+React Router
+    
+    React Router会将React项目转变成单页面应用。它通过提供大量特殊的组件来实现这一点。
+    这些组件能够管理链接的创建、管理应用的URL、在不同的URL地点之间导航时提供转换。
+    
+    React Router是一系列导航式组件的集合，可以于应用一起以声明的方式编写代码。
+    
+    React Router能使用户界面和URL保持同步，它能满足用户对页面链接以及URL的所有期待.
+    
+     React Router提供了两个不同的使用场景“react-router-native”和“react-router-dom”
+    
+动态的渲染页面
+
+    我们需要将新的UI创建为单独的组件，并使用组合功能将器包含在另一个组件里。
+    
+    短路求值语法：
+    例：
+```
+    {this.state.sreen==='list'&&(
+         <ListContacts />
+    )}
+```
+    上述代码看起来可能优点迷惑，既有组件JSX代码，又有运行表达式的代码。但其实就是
+    逻辑表达式&&：expression && expression
+    
+    这里使用的是一种叫做短路求值的JS技巧。如果第一个表达式的值是true，则运行第二个
+    表达式。若第一个表达式是false，则跳过第二个表达式。我们使用这种技巧来首先验证
+    this.state.screen的值，然后显示正确的组件
+    
+BrowserRouter组件  
+
+    BrowserRouter是React Router组件
+
+    在使用React Router之前，我们需要通过NPM安装它。安装好后，就可以将其组件导入我
+    们的应用中。
+```
+   npm install --save react-router-dom
+```
+   
+    有上述React Router简介中可知， React Router提供了两个不同的使用场景
+    “react-router-native”和“react-router-dom”，其中BrowserRouter使用
+    react-router-dom场景。
+    
+    当你使用BrowserRouter时，其实真正的是在渲染Router组件并将向其传递history属性。
+    什么是history？history来自history库(也是由React Training构建的)。该库的整个
+    目标是抽象化不同环境中的区别，并提供最少的API来使你管理历史记录堆、导航、确认导航，
+    并在会话之间保持状态。
+    
+    简言之：当你使用BrowserRouter时，你是在创建history对象，该对象将监听URL中的变化，
+            并使你的应用知道这些变化。
+ 
+BrowserRouter组件总结
+
+    要使React Router正常工作，你需要将整个应用封装在BrowserRouter组件中，此外，
+    BrowserRouter还会封装history库，使你的应用能够知道URL中的变化.
     
     
+Link 组件
+
+    Link组件是ReactRouter中的一个组件。react-router的Link组件非常重要。它使你的用户
+    能够在应用中进行导航，当用户点击Link组件时，它会通知BrowserRouter使它更新URL，它
+    还具备很好的可访问性，如果你使用键盘在应用中导航，它仍然可以正常工作，并右键打开新
+    窗口的功能也依然有用。
     
+    Link是提供声明式、可访问的应用导航的简单方式。这里补充下声明式(即只关心结果，不关心
+    过程，嘻嘻~)。通过向Link组件传递to属性，可以告诉应用要路由到哪个部分。
+```
+    <Link to='/about'>About</Link>
+```
+    若你对网络上的路由熟悉，那么你将知道链接有时候需要稍微复杂下，而不仅仅只是个字符串。
+    例如，可以传递查询参数或链接到页面的特定部分。如果要将状态传递给新的路由，该怎么办呢？
+    要考虑这些情形，你可以向Link的to属性传递对象，而不是字符串.例：
+```
+    <Link to={{
+         pathname:'/courses',
+         search:'?sort=name',
+         hash:'#the-hash',
+         state:{fromDashboard:true}
+    }}>
+    Courses
+    </Link>
+```
+    
+Link总结
+
+    React Router提供了一个Link组件，使你能够添加声明式、可访问的应用导航功能。你将在锚
+    点标记(a标签)中使用它，就像通常使用的那样。React Router的<Link>组件是让用户能够导
+    航应用的很好方式。例如，向链接传递to属性可以将用户指向绝对路径，例：
+```
+   <Link to="/about">About</Link>
+```
+
+    因为<Link>组件会渲染成拥有相应的href的锚点标签，因为，它的行为和网络上的普通链接的行
+    为一样。
     
+Router组件
+  
+    Route接受一个路径，将会匹配(也可能不匹配)当前的URL，如果路径匹配URL，则Route会渲染
+    一些UI,不匹配则不会渲染。就像我们编写的代码，通过检查组件的状态，来决定要渲染哪个页
+    面，Route也为我们做同样的事。只是它检查的不是组件的状态，而是URL，这意味着现在回退
+    按钮可以正常工作了。
     
+    最后让React Router为我们管理URL和UI
     
+Router组件总结：
+
+    若你希望向router将渲染的特定组件传递属性，你需要使用Router的render属性，render使你
+    能够控制渲染组件，进而使你能够向要渲染的组件传递任何属性。
     
-    
-    
-    
-    
-    
-    
-    
+React 是一款非常火热的库，可用于快速更新DOM，但它实际上只能处理视图，而非整个应用。   
 
 
-
+未完待续...
 
 
 
