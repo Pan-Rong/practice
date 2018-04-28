@@ -24,3 +24,43 @@ return(
 }      
 
 ```
+
+**2. Antd-mpbile**
+[参考1](https://mobile.ant.design/docs/react/introduce-cn)
+[论坛1](https://segmentfault.com/t/antd-mobile)
+
+**3.echarts绘制图表**
+[参考1-官网](https://www.npmjs.com/package/native-echarts)
+[参考2](https://blog.csdn.net/sinat_17775997/article/details/68936687)
+
+基础实例：
+```
+import Echarts from 'native-echarts';
+let option1 = {
+            title: {
+                text: 'ECharts demo'
+             },
+            tooltip: {},
+            legend: {
+                data: ['年度仪表统计数量/个']
+            },
+            xAxis: {
+                name: '时间',
+                data: ["2018", "2019", "2020", "2021", "2022", "2023"]
+            },
+            yAxis: {
+                name: '数量(个)'
+            },
+            color: ['rgb(0,59,59)'],
+            series: [{
+                name: '年度仪表统计数量/个',
+                type: 'bar',
+                data: [5, 0, 0, 0, 0, 0]
+            }]
+        };
+function App(){
+return(
+     <Echarts option={option1} height={350} width={370}  /> 
+)
+}
+```
