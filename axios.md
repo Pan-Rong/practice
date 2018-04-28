@@ -1,6 +1,8 @@
 # axios 跨域问题
 [官方文档1](https://www.kancloud.cn/yunye/axios/234845)
+[参考1](https://blog.csdn.net/garyhu1/article/details/73188165)
 [参考2](https://www.cnblogs.com/Upton/p/6180512.html)
+
 安装
 ```
 npm install axios
