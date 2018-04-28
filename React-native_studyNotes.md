@@ -25,7 +25,7 @@ return(
 
 ```
 
-**2. Antd-mpbile**
+**2. Antd-mobile**
 [参考1](https://mobile.ant.design/docs/react/introduce-cn)
 [论坛1](https://segmentfault.com/t/antd-mobile)
 
