@@ -336,13 +336,13 @@ state的值变化时，每次都会导致组件重新加载(若 shouldComponentU
 用法：
 存储页面写法：
 
-`
+```
 window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.data));
-`
+```
 
 解析界面写法（ 在构造函数里，此处使用了 react-route，及 serviceId = this.props.match.params.id ）：
 
-`
+```
         var str = window.localStorage.getItem("networddata" + this.props.match.params.id);
         var _items = [];
         if (str) {
@@ -351,7 +351,7 @@ window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.dat
         this.state = {
             items: _items,
         }
-`
+```
 
 ## 4、localStorage 和sessionStorage 的区别
 
@@ -368,21 +368,21 @@ window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.dat
 **localStorage的用法**
 
 (1)setItem存储value
-    `window.localStorage.setItem("key", "value"); `
+    ```window.localStorage.setItem("key", "value"); ```
 (2)getItem获取value
-     `var value = window.localStorage.getItem("key"); `
+     ```var value = window.localStorage.getItem("key"); ```
 (3)删除保存的数据
-    `window.localStorage.removeItem('key'); `
+    ```window.localStorage.removeItem('key'); ```
 (4)删除所有保存的数据
-    `window.localStorage.clear(); `
+    ```window.localStorage.clear(); ```
     
 **sessionStorage的用法**
 
 (1)setItem存储value
-   ` window.sessionStorage.setItem("key", "value"); `
+   ``` window.sessionStorage.setItem("key", "value"); ```
 (2)getItem获取value
-     `var value = window.sessionStorage.getItem("key"); `
+     ```var value = window.sessionStorage.getItem("key"); ```
 (3)删除保存的数据
-    `window.sessionStorage.removeItem('key'); `
+    ```window.sessionStorage.removeItem('key'); ```
 (4)删除所有保存的数据
-    `window.sessionStorage.clear(); `
+    ```window.sessionStorage.clear(); ```
