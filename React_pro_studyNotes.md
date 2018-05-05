@@ -335,10 +335,13 @@ state的值变化时，每次都会导致组件重新加载(若 shouldComponentU
 
 用法：
 存储页面写法：
+
 `
 window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.data));
 `
+
 解析界面写法（ 在构造函数里，此处使用了 react-route，及 serviceId = this.props.match.params.id ）：
+
 `
         var str = window.localStorage.getItem("networddata" + this.props.match.params.id);
         var _items = [];
@@ -362,7 +365,7 @@ window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.dat
     localStorage需要手动清除，若不清除，则一直都保存在；
     sessionStorage 在会话框或窗口关闭时，自动关闭；
 
-**localStorage的用法
+**localStorage的用法**
 
 (1)setItem存储value
     `window.localStorage.setItem("key", "value"); `
@@ -373,7 +376,7 @@ window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.dat
 (4)删除所有保存的数据
     `window.localStorage.clear(); `
     
-**sessionStorage的用法
+**sessionStorage的用法**
 
 (1)setItem存储value
    ` window.sessionStorage.setItem("key", "value"); `
