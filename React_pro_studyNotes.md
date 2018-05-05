@@ -322,3 +322,12 @@ require('zrender/lib/vml/vml');
 ```
 
 [1]: http://setcamp.tech
+
+
+
+## 2、React 在项目中state使用的注意点
+
+state的值变化时，每次都会导致组件重新加载(若 shouldComponentUpdate 生命周期被显示的设置成false时，则不更新组件)；
+
+若项目中需要设置标记，可通过在state下面直接定义变量来实现，而不是设置state；一般该值用于存储需要在页面动态显示的数据。
+
