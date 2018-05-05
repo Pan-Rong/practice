@@ -1,6 +1,6 @@
 # React projects study notes
 
-**1.echarts 使用**
+## 1.echarts 使用
 [官方参考1](http://echarts.baidu.com/tutorial.html#5%20%E5%88%86%E9%92%9F%E4%B8%8A%E6%89%8B%20ECharts)
 [按需加载参考](https://github.com/hyy1115/react-echarts-modules)
 
@@ -331,3 +331,55 @@ state的值变化时，每次都会导致组件重新加载(若 shouldComponentU
 
 若项目中需要设置标记，可通过在state下面直接定义变量来实现，而不是设置state；一般该值用于存储需要在页面动态显示的数据。
 
+## 3、 React中使用localStorage实现缓存，提高访问速率
+
+用法：
+存储页面写法：
+`
+window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.data));
+`
+解析界面写法（ 在构造函数里，此处使用了 react-route，及 serviceId = this.props.match.params.id ）：
+`
+        var str = window.localStorage.getItem("networddata" + this.props.match.params.id);
+        var _items = [];
+        if (str) {
+            _items = JSON.parse(str);
+        }
+        this.state = {
+            items: _items,
+        }
+`
+
+## 4、localStorage 和sessionStorage 的区别
+
+(1) 共同点
+
+    存储空间比较大，大约5MB；
+    在浏览器端缓存；
+    
+(2) 不同点
+ 
+    localStorage需要手动清除，若不清除，则一直都保存在；
+    sessionStorage 在会话框或窗口关闭时，自动关闭；
+
+**localStorage的用法
+
+(1)setItem存储value
+    `window.localStorage.setItem("key", "value"); `
+(2)getItem获取value
+     `var value = window.localStorage.getItem("key"); `
+(3)删除保存的数据
+    `window.localStorage.removeItem('key'); `
+(4)删除所有保存的数据
+    `window.localStorage.clear(); `
+    
+**sessionStorage的用法
+
+(1)setItem存储value
+   ` window.sessionStorage.setItem("key", "value"); `
+(2)getItem获取value
+     `var value = window.sessionStorage.getItem("key"); `
+(3)删除保存的数据
+    `window.sessionStorage.removeItem('key'); `
+(4)删除所有保存的数据
+    `window.sessionStorage.clear(); `
