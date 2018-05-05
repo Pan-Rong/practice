@@ -369,10 +369,13 @@ window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.dat
 
 (1)setItem存储value
     ```window.localStorage.setItem("key", "value"); ```
+    
 (2)getItem获取value
      ```var value = window.localStorage.getItem("key"); ```
+     
 (3)删除保存的数据
     ```window.localStorage.removeItem('key'); ```
+    
 (4)删除所有保存的数据
     ```window.localStorage.clear(); ```
     
@@ -380,9 +383,12 @@ window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.dat
 
 (1)setItem存储value
    ``` window.sessionStorage.setItem("key", "value"); ```
+   
 (2)getItem获取value
      ```var value = window.sessionStorage.getItem("key"); ```
+     
 (3)删除保存的数据
     ```window.sessionStorage.removeItem('key'); ```
+    
 (4)删除所有保存的数据
     ```window.sessionStorage.clear(); ```
