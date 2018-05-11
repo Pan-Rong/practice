@@ -75,6 +75,7 @@ return(
 
       在react native 中，使用react-navigation 从A页面跳到B页面，在B页面里修改数据，同时影响了A页面，但是从B页面返回A页面时，页面不刷新。
       
+
 解决方法：
 
       在A页面设置DeviceEventEmitter监听事件,组件卸载时要移除监听，如：
