@@ -68,4 +68,54 @@ return(
 
       这是一个本地持久存储的封装，可以同时支持react-native(AsyncStorage)和浏览器(localStorage)。ES6语法，promise异步读取，使用jest进行了完整的单元测试。
       
+      
+**5. React Native 页面跳转不更新解决方法：注册监听事件-DeviceEventEmitter**
+
+问题：
+
+      在react native 中，使用react-navigation 从A页面跳到B页面，在B页面里修改数据，同时影响了A页面，但是从B页面返回A页面时，页面不刷新。
+      
+解决方法：
+
+      在A页面设置DeviceEventEmitter监听事件,组件卸载时要移除监听，如：
       
+```
+import { DeviceEventEmitter } from 'react-native';
+
+export default class App extends Component {
+      render(){
+      return(
+            ....
+            )
+      }
+      componentDidMount() {
+            //调用事件通知
+            this.deEmitter = DeviceEventEmitter.addListener("changeList",()=>{
+               //更新页面相关操作
+               .....
+            })
+       }
+       
+        componentWillUnmount(){
+        //在组件销毁的时候要将其移除  
+            this.deEmitter.remove();  
+        }
+```
+
+      在B页面，在返回A页面操作前，先触发监听事件，如：
+      
+```
+import { DeviceEventEmitter } from 'react-native';
+
+      ...
+      DeviceEventEmitter.emit('changeList');
+      //this.props.navigation.goBack();
+      ...
+
+```
+
+
+
+
+
+
