@@ -68,7 +68,8 @@ return(
 
       这是一个本地持久存储的封装，可以同时支持react-native(AsyncStorage)和浏览器(localStorage)。ES6语法，promise异步读取，使用jest进行了完整的单元测试。
       
-      
+
+
 **5. React Native 页面跳转不更新解决方法：注册监听事件-DeviceEventEmitter**
 
 问题：
@@ -115,8 +116,27 @@ import { DeviceEventEmitter } from 'react-native';
 
 ```
 
+**6. 安卓机硬件上的返回按钮事件(React-Native 安卓back键处理)
 
+[参考文档](http://bbs.reactnative.cn/topic/480/%E5%AE%89%E5%8D%93back%E9%94%AE%E7%9A%84%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC-%E9%AB%98%E7%BA%A7%E7%AF%87)
+[官方文档](https://reactnative.cn/docs/0.45/backhandler.html)
 
+Android back键监听，主要是事件监听：
+```
+      //设置监听事件
+      BackAndroid.addEventListener('hardwareBackPress', this.onBackPressed);
+
+      // 取消监听事件
+      BackAndroid.removeEventListener('hardwareBackPress', this.onBackPressed);
+```
+
+***注：*** 
+
+  > 同时有两个页面a和b(其中b页面后入栈)，监听Android的back键事件，
+  
+  - 如果b页面中监听函数 return true的情况下，a页面就不会监听到back键事件了
+  
+  - 如果b页面中监听函数 return false 或者没有返回值，a页面也能监听到back事件。
 
 
 
