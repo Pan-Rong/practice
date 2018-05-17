@@ -392,3 +392,26 @@ window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.dat
     
 (4)删除所有保存的数据
     ```window.sessionStorage.clear(); ```
+
+## 5、React 中 dangerouslySetInnerHTML 
+
+>  `dangerouslySetInnerHTML` 是 `React `用于代替在浏览器 `DOM `中使用 `innerHTML`。一般来说，
+
+>   从代码设置`HTML`是有风险的，因为很容易无意中将用户暴露于跨站点脚本`（XSS）` 攻击。 所以，你可以直接从 `React `设置 `HTML `，
+>   但是你必须使用`dangerouslySetInnerHTML `并通过 `__html` 键传递一个对象，提醒自己这是危险的。 例如：
+
+```
+    function createMarkup() {
+      return {__html: 'First &middot; Second'};
+    }
+
+    function MyComponent() {
+      return <div dangerouslySetInnerHTML={createMarkup()} />;
+    }
+```
+或者
+```
+ function MyComponent() {
+      return <div dangerouslySetInnerHTML={{ _html: 'First &middot; Second'}} />;
+    }
+```
