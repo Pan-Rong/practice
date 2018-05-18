@@ -66,15 +66,125 @@ return(
 ```
 **4.react-native-charts-wrapper 图表**
 
-[官方文档](https://github.com/wuxudong/react-native-charts-wrapper/blob/master/README.md) | [官方文档之wiki](https://github.com/PhilJay/MPAndroidChart/wiki)
+[官方文档-JAVA](https://github.com/wuxudong/react-native-charts-wrapper/blob/master/README.md) | [官方文档JAVA-wiki](https://github.com/PhilJay/MPAndroidChart/wiki)
 
-> 另一种react native的图表，
+[参考文档1-JS](https://github.com/gaishimo/react-native-charts-wrapper-example/blob/master/line-chart.js)
+
+[参考文档2-JS](https://github.com/gregkyt/rnchartsexample/blob/master/index.android.js)
+
+> 另一种react native的图表，和Echarts的设置有所区别，示例如下
+
+```
+import React, { Component } from 'react';
+import { View, StyleSheet, processColor } from 'react-native'
+import { LineChart } from 'react-native-charts-wrapper'
+class Home extends Component {
+      render(){
+            return(
+            <View>
+                  <LineChart
+                    style={{ flex: 1 }}
+                    data={{
+                        dataSets: [
+                            {
+                              values: [
+                                { y: 3.4 },
+                                { y: 10.5 },
+                                { y: 5.8 },
+                                { y: 8.2 },
+                                { y: 15.4 },
+                                { y: 6.3 },
+                                { y: 7.1 },
+                                { y: 9.9 },
+                                { y: 10.1 },
+                                { y: 6.2 },
+                                { y: 7.3 },
+                              ],
+                              //设置数值label
+                              label: '',
+                              config: {
+                                //lineWidth: 1.5,
+                                //drawCircles: false,
+                                //drawCubic: false,
+                                //highlightColor: processColor('red'),
+                                //color: processColor('rgb(255, 150, 150)'),
+                                // drawFilled: true,
+                                //fillColor: processColor('red'),
+                                //fillAlpha: 255,
+                                //valueTextSize: 0,
+                                //valueFormatter: "##.0",
+                                //设置虚线
+                               // dashedLine: {
+                                //  lineLength: 20,
+                                //  spaceLength: 0,
+                                //},
+                              }
+                            },
+                          ],
+                    }}
+                    xAxis={{
+                        // fontFamily: "HelveticaNeue-Medium",
+                        // fontWeight: "bold",
+                        // fontStyle: "italic",
+                        valueFormatter: [1,2,3,4,5,6,7,8,9,10,11],
+                    }}
+                    yAxis={{
+                        left:{
+                          //限值线
+                          limitLines: [
+                              {
+                              limit: 9,
+                              label: '上限_9',
+                              lineColor: processColor('#0a4'),
+                              lineWidth: 1,
+                              dashedLine: {
+                                  lineLength: 5,
+                                  spaceLength: 5,
+                                },
+                              },
+                              {
+                                  limit: 7,
+                                  label: '警戒线_7',
+                                  lineColor: processColor('red'),
+                                  lineWidth: 1,
+                              },
+                              {
+                                  limit: 5,
+                                  label: 'XX_5',
+                                  lineColor: processColor('#a77'),
+                                  lineWidth: 1,
+                              },
+                              {
+                                  limit: 3,
+                                  label: '下线_3',
+                                  lineColor: processColor('blue'),
+                                  lineWidth: 1,
+                              }
+                          ],
+                          drawLimitLinesBehindData: true,
+                      }
+                    }}
+                    marker={{
+                      enabled: true,
+                      digits: 1,//精确到几位小数
+                      backgroundTint: processColor('teal'),
+                      markerColor: processColor('#a44'),
+                      textColor: processColor('white')
+                    }}
+                    chartDescription={{ text: '' }} animation={{ durationX: 100 }} />
+                  />
+            </View>
+            )
+      }
+}
+
+```
 
 **5.react native storage** [参考文档](https://github.com/sunnylqm/react-native-storage/blob/master/README-CHN.md)
 
-      这是一个本地持久存储的封装，可以同时支持react-native(AsyncStorage)和浏览器(localStorage)。ES6语法，promise异步读取，使用jest进行了完整的单元测试。
+      这是一个本地持久存储的封装，可以同时支持react-native(AsyncStorage)和浏览器(localStorage)。ES6语法，promise异步读取，
+      使用jest进行了完整的单元测试。
       
-
 
 **6. React Native 页面跳转不更新解决方法：注册监听事件-DeviceEventEmitter**
 
