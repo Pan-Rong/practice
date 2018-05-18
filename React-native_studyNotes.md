@@ -64,13 +64,19 @@ return(
 )
 }
 ```
-**4.react native storage** [参考文档](https://github.com/sunnylqm/react-native-storage/blob/master/README-CHN.md)
+**4.react-native-charts-wrapper 图表**
+
+[官方文档](https://github.com/wuxudong/react-native-charts-wrapper/blob/master/README.md) | [官方文档之wiki](https://github.com/PhilJay/MPAndroidChart/wiki)
+
+> 另一种react native的图表，
+
+**5.react native storage** [参考文档](https://github.com/sunnylqm/react-native-storage/blob/master/README-CHN.md)
 
       这是一个本地持久存储的封装，可以同时支持react-native(AsyncStorage)和浏览器(localStorage)。ES6语法，promise异步读取，使用jest进行了完整的单元测试。
       
 
 
-**5. React Native 页面跳转不更新解决方法：注册监听事件-DeviceEventEmitter**
+**6. React Native 页面跳转不更新解决方法：注册监听事件-DeviceEventEmitter**
 
 问题：
 
@@ -116,7 +122,7 @@ import { DeviceEventEmitter } from 'react-native';
 
 ```
 
-**6. 安卓机硬件上的返回按钮事件(React-Native 安卓back键处理)**
+**7. 安卓机硬件上的返回按钮事件(React-Native 安卓back键处理)**
 
 [参考文档](http://bbs.reactnative.cn/topic/480/%E5%AE%89%E5%8D%93back%E9%94%AE%E7%9A%84%E5%A4%84%E7%90%86-%E5%9F%BA%E6%9C%AC-%E9%AB%98%E7%BA%A7%E7%AF%87)
 [官方文档](https://reactnative.cn/docs/0.45/backhandler.html)
