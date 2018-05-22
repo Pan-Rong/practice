@@ -16,7 +16,7 @@ import 'echarts/lib/component/dataZoom';//引入缩放区域
 import 'echarts/lib/component/legend';//引入legend
 import 'echarts/lib/component/grid';//引入网格
 import 'echarts/lib/chart/line'; //引入折线图
-// import 'echarts/lib/component/toolbox';//引入toolbox
+import 'echarts/lib/component/toolbox';//引入toolbox
 
 
 
@@ -88,6 +88,19 @@ let lineOption = {
     },
     legend: {
         data: ['X轴', 'Y轴', 'Z轴']
+    },
+    //添加下载成图片的格式
+    toolbox:{
+        show: true,
+        itemGap:30,//各个toolbox图标之间的间隔
+        feature: {
+             saveAsImage: {
+                show:true,
+                title: '图片',
+                name:'仪表数据日志',
+                pixelRatio: 2 ,//保存图片的分辨率比例，大于1时表示更高分辨率
+                }
+         }
     },
     color: ['red', 'green', 'blue'],
     grid: {
