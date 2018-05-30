@@ -428,3 +428,6 @@ window.localStorage.setItem("networddata" + serviceId, JSON.stringify(result.dat
       return <div dangerouslySetInnerHTML={{ _html: 'First &middot; Second'}} />;
     }
 ```
+## 6、`<Modal>`的使用
+
+> `<Modal>`组件中，参数的设置，其中`destroyOnClose={true}`，配置后，可实现模态框关闭后再次打开，重新加载`<Modal>`.
