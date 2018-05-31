@@ -154,13 +154,90 @@ npm install vue
 + Vue有点：(1) Vue 组件不需要任何polyfill，并且在所有支持的浏览器(IE9及更高版本)之下表现一致；(2)Vue 最突出的功能：跨组件数据流、自定义事件通信及构建工具集成
 
 
+## 四、数据与方法
+
+> 使用`Object.freeze()`，会阻止修改现有的属性，意味着响应系统无法再追踪变化
+
+## 五、实例生命周期钩子
+
+> Vue实例的初始化过程：设置数据监听、编译模板、将实例挂载到DOM并再数据变化时更新DOM等。
+
++ `created` 用来在一个实例被创建之后执行代码：
+```
+  new Vue({
+    data: {
+      a: 1
+    },
+    created: function () {
+      // `this` 指向 vm 实例
+      console.log('a is: ' + this.a)
+    }
+  })
+  // => "a is: 1"
+```
++ `mounted` ，`updated`, `destroyed`；生命周期钩子的`this`上下文指向调用它的Vue实例
+
+**注：**: 不要在选项属性或回调上使用**箭头函数**，因为箭头函数是和父级上下文绑定在一起的。
 
 
+## 六、模板语法
 
++ 文本，最常见的是使用“Mustache”语法(双大括号)的文本插值
+```
+//Mustache 标签将会被替代为对应数据对象上 msg 属性的值,绑定对象属性改变时，插值处的内容都会更新
 
+  <span>Message: {{ msg }}</span>
+//使用" v-once "指令，可执行一次性地插值，当数据改变时，插值处的内容不会更新
 
+  <span v-once>这个将不会改变: {{ msg }}</span>
+  
+  
+```
++ 原始HTML，使用`v-html` ,**注：**不能使用`v-html`来复合局部模板，示例：
+```
+//输出真正的HTML
+  <p>Using v-html directive: <span v-html="rawHtml"></span></p>
+```
++ 特性,双大括号语法不能作用在HTML特性上，应该使用`v-bind`指令；布尔特性的情况下，`v-bind`工作起来略有不同，如果值为`null`、`undefined `、`false`;则则该值的特性不会被包含在渲染出来的<button>元素中；
+ 
+```
+   <div v-bind:id="dynamicId"></div>
+```
 
++ 使用JS表达式，**限制：**每个绑定都只能包含单个表达式
+```
+   {{ number + 1 }}
 
+   {{ ok ? 'YES' : 'NO' }}
+
+   {{ message.split('').reverse().join('') }}
+
+   <div v-bind:id="'list-' + id"></div>
+```
++ 参数，一些指令能够接收一个“参数”，在指令名称之后以冒号表示;示例:
+```
+   <a v-bind:href="url">...</a>
+```
++  修饰符，修饰符是以半角句号`.`指明的特殊后缀，用于指出一个指令应该以特殊方式绑定，例`.prevent`修饰符告诉`v-on`指令对于触发的事件调用`event.preventDefault()`;示例:
+```
+   <form v-on:submit.prevent="onSubmit">...</form>
+```
++ 缩写， 示例：
+```
+// v-bind 缩写
+    <!-- 完整语法 -->
+    <a v-bind:href="url">...</a>
+
+    <!-- 缩写 -->
+    <a :href="url">...</a>
+    
+//v-on 缩写
+<!-- 完整语法 -->
+   <a v-on:click="doSomething">...</a>
+
+   <!-- 缩写 -->
+   <a @click="doSomething">...</a>
+```
 
 
 
