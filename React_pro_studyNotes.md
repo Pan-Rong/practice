@@ -459,3 +459,18 @@ Date.prototype.format = function (fmt) { //author: meizz
     return fmt;
 }
 ```
+## 8、react中使用百度地图
+> 当使用webpack打包react时，在html中使用百度地图API时，会出现webpackJsonp未定义的错误;目前还不知道怎么解决，找了个替代的方案，动态加载百度地图API；代码示例如下：
+```
+        const script = document.createElement("script");
+        script.src = "http://api.map.baidu.com/api?v=2&ak=KKe9N4u01vxwwstOOiHq2wIlV8Pbuaw&callback=onLoad";
+        script.type = "text/javascript";
+        document.head.appendChild(script);
+        window.onLoad = function () {
+            var map = new BMap.Map("map");
+            var point = new BMap.Point(116.404, 39.915);
+            map.centerAndZoom(point, 15);
+            var marker = new BMap.Marker(point);  // 创建标注
+            map.addOverlay(marker);               // 将标注添加到地图中
+        };
+```
